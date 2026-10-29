@@ -656,6 +656,12 @@
     prefMouseLampToggle: document.getElementById('prefMouseLampToggle'),
     prefSoundFxToggle: document.getElementById('prefSoundFxToggle'),
     prefParticlesToggle: document.getElementById('prefParticlesToggle'),
+    // Summary of Changes On-Load Modal
+    summaryModalBackdrop: document.getElementById('summaryModalBackdrop'),
+    summaryCloseBtn: document.getElementById('summaryCloseBtn'),
+    summaryGotItBtn: document.getElementById('summaryGotItBtn'),
+    summaryEnableFxNowCheckbox: document.getElementById('summaryEnableFxNowCheckbox'),
+    openSummaryBtn: document.getElementById('openSummaryBtn'),
   };
 
   // ---------------------------------------------------------------------------
@@ -664,6 +670,7 @@
   function init() {
     setupWhimsicalLamp();
     setupSettingsAndPreferences();
+    setupSummaryModal();
     populateEmojiDrawer();
     populateContextReactions();
     setupEventListeners();
@@ -780,6 +787,85 @@
         launchWhimsicalPhysicsBurst(window.innerWidth / 2, window.innerHeight / 2, '🎉');
       } else {
         showToast('Whimsical Physics Particles disabled');
+      }
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // SUMMARY OF CHANGES ON-LOAD MODAL
+  // ---------------------------------------------------------------------------
+  function setupSummaryModal() {
+    function openSummaryModal() {
+      if (!dom.summaryModalBackdrop) return;
+      dom.summaryModalBackdrop.classList.add('open');
+      dom.summaryModalBackdrop.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeSummaryModal() {
+      if (!dom.summaryModalBackdrop) return;
+      dom.summaryModalBackdrop.classList.remove('open');
+      dom.summaryModalBackdrop.setAttribute('aria-hidden', 'true');
+    }
+
+    // Automatically trigger on page load with a gentle delay for smooth entrance
+    setTimeout(() => {
+      openSummaryModal();
+    }, 400);
+
+    // Re-open button from topbar
+    if (dom.openSummaryBtn) {
+      dom.openSummaryBtn.addEventListener('click', openSummaryModal);
+    }
+
+    // Close button (X)
+    if (dom.summaryCloseBtn) {
+      dom.summaryCloseBtn.addEventListener('click', closeSummaryModal);
+    }
+
+    // Backdrop click dismiss
+    if (dom.summaryModalBackdrop) {
+      dom.summaryModalBackdrop.addEventListener('click', (e) => {
+        if (e.target === dom.summaryModalBackdrop) {
+          closeSummaryModal();
+        }
+      });
+    }
+
+    // "Explore Workspace" primary button
+    if (dom.summaryGotItBtn) {
+      dom.summaryGotItBtn.addEventListener('click', () => {
+        // If user enabled the quick checkbox, turn on whimsical features immediately
+        if (dom.summaryEnableFxNowCheckbox && dom.summaryEnableFxNowCheckbox.checked) {
+          state.lampEnabled = true;
+          state.soundEnabled = true;
+          state.particlesEnabled = true;
+
+          // Sync preferences switches
+          if (dom.prefMouseLampToggle) dom.prefMouseLampToggle.checked = true;
+          if (dom.prefSoundFxToggle) dom.prefSoundFxToggle.checked = true;
+          if (dom.prefParticlesToggle) dom.prefParticlesToggle.checked = true;
+
+          // Enable Lamp spotlight
+          if (dom.lamp) dom.lamp.classList.remove('disabled');
+
+          // Celebrate with sound & particles
+          playSound('celebrate');
+          launchWhimsicalPhysicsBurst(window.innerWidth / 2, window.innerHeight * 0.42, '🎉');
+          showToast('✨ Whimsical FX enabled! Hover messages & react to explore.');
+        } else {
+          showToast('Welcome! You can re-open What’s New or Settings (⚙️) anytime.');
+        }
+
+        closeSummaryModal();
+      });
+    }
+
+    // Keyboard ESC dismissal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (dom.summaryModalBackdrop && dom.summaryModalBackdrop.classList.contains('open')) {
+          closeSummaryModal();
+        }
       }
     });
   }

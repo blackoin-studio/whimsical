@@ -50,6 +50,11 @@
 
     <!-- Topbar Controls -->
     <div class="topbar-right">
+      <button class="topbar-summary-btn" id="openSummaryBtn" title="View Summary of Changes">
+        <span class="summary-btn-sparkle">✨</span>
+        <span class="summary-btn-text">What's New</span>
+      </button>
+
       <button class="icon-tool-btn" id="topSettingsBtn" title="Settings & Preferences">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       </button>
@@ -319,6 +324,136 @@
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 17 20 12 15 7"/><path d="M4 18v-2a4 4 0 0 1 4-4h12"/></svg>
       <span>Forward</span>
     </button>
+  </div>
+
+  <!-- Pop-Up Modal on Page Load: Summary of Changes -->
+  <div class="summary-modal-backdrop" id="summaryModalBackdrop" aria-hidden="true">
+    <div class="summary-modal" role="dialog" aria-modal="true" aria-labelledby="summaryModalTitle">
+      <!-- Modal Header -->
+      <div class="summary-modal-header">
+        <div class="summary-badge-wrap">
+          <div class="summary-modal-badge">
+            <span class="badge-sparkle">✨</span>
+            <span>Feature Changelog & Upgrades</span>
+          </div>
+          <span class="summary-version-pill">v2.0 Whimsical</span>
+        </div>
+        <button class="summary-close-btn" id="summaryCloseBtn" title="Close" aria-label="Close Summary Modal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="summary-modal-body">
+        <div class="summary-intro-banner">
+          <div class="intro-headline">
+            <h2 class="summary-title" id="summaryModalTitle">Summary of What We Built Here</h2>
+            <p class="summary-subtitle">A high-fidelity recreation of the modern <strong>Zedu Chat</strong> platform enhanced with <strong>Telegram-style interactive reactions</strong>, physics particle bursts, and ambient micro-interactions.</p>
+          </div>
+        </div>
+
+        <div class="summary-cards-grid">
+          <!-- Card 1 -->
+          <div class="summary-card">
+            <div class="summary-card-icon zedu-card-icon">🏢</div>
+            <div class="summary-card-content">
+              <div class="card-title-row">
+                <h3>Zedu Workspace Architecture</h3>
+                <span class="card-tag">Core Layout</span>
+              </div>
+              <p>Faithful recreation of the Slack/Zedu layout from your reference:</p>
+              <ul class="summary-card-list">
+                <li><strong>Primary Icon Rail:</strong> Home, DMs, People, Files, Buzz, and Profile.</li>
+                <li><strong>Collapsible Sidebar:</strong> Expandable <em>Threads</em>, <em>Buzzes</em>, and <em>Channels</em> with unread counts and locked badges.</li>
+                <li><strong>Adaptive Chat Feed:</strong> Restricted announcement layout for <code>#announcement</code> vs. full interactive composer for <code>#team-vulcon-2.0</code>.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="summary-card">
+            <div class="summary-card-icon telegram-card-icon">🎭</div>
+            <div class="summary-card-content">
+              <div class="card-title-row">
+                <h3>Telegram-Style Reaction Suite</h3>
+                <span class="card-tag">Interactivity</span>
+              </div>
+              <p>Fluid, physics-based reactions inspired by Telegram:</p>
+              <ul class="summary-card-list">
+                <li><strong>Hover Reaction Bar:</strong> Quick emoji reactions floating dynamically over chat messages with scale bounce physics.</li>
+                <li><strong>Animated Vector SVG Emojis:</strong> Hand-crafted animated vector emojis (Heart ❤️, Fire 🔥, Party 🎉, Rocket 🚀, etc.).</li>
+                <li><strong>Right-Click Context Menu:</strong> Full Telegram context menu with emoji bar, Reply, Copy Text, Pin, and Forward.</li>
+                <li><strong>Searchable Side Drawer:</strong> Tabbed drawer with Emojis, Stickers, and GIFs.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="summary-card">
+            <div class="summary-card-icon physics-card-icon">🎆</div>
+            <div class="summary-card-content">
+              <div class="card-title-row">
+                <h3>60 FPS Canvas Physics Particles</h3>
+                <span class="card-tag">Whimsical Engine</span>
+              </div>
+              <p>Hardware-accelerated 2D canvas particle explosion engine:</p>
+              <ul class="summary-card-list">
+                <li>Confetti ribbons, tumbling 3D shapes, sparkling embers, and radial shockwaves detonating whenever reactions are clicked.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="summary-card">
+            <div class="summary-card-icon lamp-card-icon">💡</div>
+            <div class="summary-card-content">
+              <div class="card-title-row">
+                <h3>Whimsical Mouse Lamp & Synthesized Audio FX</h3>
+                <span class="card-tag">Sensory UX</span>
+              </div>
+              <p>Organic ambient spotlight and zero-dependency procedural audio:</p>
+              <ul class="summary-card-list">
+                <li><strong>Whimsical Mouse Lamp:</strong> Ambient light spotlight that smoothly tracks cursor movement and illuminates reactions.</li>
+                <li><strong>Web Audio API Sound FX:</strong> Synthesized bubble pops, chimes, and celebration chords with zero external audio assets.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="summary-card">
+            <div class="summary-card-icon settings-card-icon">⚙️</div>
+            <div class="summary-card-content">
+              <div class="card-title-row">
+                <h3>Preferences & Non-Intrusive Defaults</h3>
+                <span class="card-tag">User Controls</span>
+              </div>
+              <p>All whimsical FX are user-configurable:</p>
+              <ul class="summary-card-list">
+                <li>Mouse Lamp, Sound FX, and Physics Particles are <strong>disabled by default</strong> for clean day-to-day productivity.</li>
+                <li>Manage toggles anytime in <strong>Settings (⚙️) &rarr; Preferences</strong>, or enable them immediately with the quick option below.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="summary-modal-footer">
+        <div class="summary-footer-left">
+          <label class="summary-toggle-pill" for="summaryEnableFxNowCheckbox">
+            <input type="checkbox" id="summaryEnableFxNowCheckbox" />
+            <span class="summary-toggle-custom"></span>
+            <span class="summary-toggle-label">✨ Turn ON Whimsical FX now (Lamp, Sounds & Particles)</span>
+          </label>
+        </div>
+        <div class="summary-footer-right">
+          <button class="btn-summary-dismiss" id="summaryGotItBtn">
+            <span>Explore Workspace</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Settings & Preferences Modal (Requested Location for Lamp & Sound FX) -->
